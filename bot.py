@@ -19,31 +19,31 @@ async def on_ready():
 bot.remove_command('help')
     
 @bot.command()
-@commands.has_role(618905939717914634)
+@commands.has_role(627226040720162816)
 async def presence(ctx, *, status):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(status))
     await ctx.send("Status Changed!")
     
 @bot.command()
-@commands.has_role(618905939717914634)
+@commands.has_role(627226040720162816)
 async def offlinemode(ctx):
     await bot.change_presence(status=discord.Status.offline)
     await ctx.send("Status Changed!")
 
 @bot.command()
-@commands.has_role(618905939717914634)
+@commands.has_role(627226040720162816)
 async def onlinemode(ctx):
     await bot.change_presence(status=discord.Status.online)
     await ctx.send("Status Changed!")
     
 @bot.command()
-@commands.has_role(618905939717914634)
+@commands.has_role(627226040720162816)
 async def userpresence(ctx):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(f"with {len(list(bot.get_all_members()))} users!"))
     await ctx.send("Status Changed!")           
                                                                                   
 @bot.command()
-@commands.has_role(618905939717914634)
+@commands.has_role(627226040720162816)
 async def serverpresence(ctx):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(f"in {len(bot.guilds)} servers!"))
     await ctx.send("Status Changed!") 
@@ -223,3 +223,5 @@ async def on_command_error(ctx, error):
                               colour=0xe73c24)
       
 bot.run(os.getenv('TOKEN'))
+
+
