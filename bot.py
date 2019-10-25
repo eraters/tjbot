@@ -176,6 +176,16 @@ async def hello(ctx, member : discord.Member= None):
     await ctx.send("Hello {}!".format(member.mention))
     
 @bot.command()
+async def ip(ctx, member : discord.Member= None):
+    member = ctx.author if not member else member
+    await ctx.send("canada.syte.space:25824")
+    
+@bot.command()
+async def site(ctx, member : discord.Member= None):
+    member = ctx.author if not member else member
+    await ctx.send("WIP")
+    
+@bot.command()
 async def overrideenable(ctx, member : discord.Member= None):
     member = ctx.author if not member else member
     await ctx.send("Hello {} your override mode is on!!".format(member.mention))
