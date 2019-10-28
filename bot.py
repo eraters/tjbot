@@ -19,31 +19,75 @@ async def on_ready():
 bot.remove_command('help')
     
 @bot.command()
-@commands.has_role(627226040720162816)
+async def new(ctx):
+    if ctx.message.guild.id == int("638485386376642561"):
+      member = ctx.message.author
+      server = ctx.message.guild
+      createchannel = await server.create_text_channel(f"ticket-{member}")
+      embed = discord.Embed(title=f"New ticket created",
+                            description=f"Hello {member.mention}, thanks for reaching out to our support team, a member of staff will be with you as soon as possible.", color=0x7289DA)
+      embed.set_footer(
+          text=f"Request by {ctx.author}", icon_url=member.avatar_url)
+      staff = discord.utils.get(ctx.message.author.guild.roles, name="Support")
+      guest = discord.utils.get(ctx.message.author.guild.roles, name="member")
+      everyone = ctx.message.author.guild.default_role
+      disallow = discord.PermissionOverwrite()
+      disallow.read_messages = False
+      disallow.send_messages = False
+      allow = discord.PermissionOverwrite()
+      allow.read_messages = True
+      allow.send_messages = True
+      await createchannel.set_permissions(guest, overwrite=disallow)
+      await createchannel.set_permissions(everyone, overwrite=disallow)
+      await createchannel.set_permissions(ctx.message.author, overwrite=allow)
+      await createchannel.set_permissions(staff, overwrite=allow)
+      await createchannel.send(embed=embed)
+      channel = bot.get_channel(createchannel)
+      await ctx.send("Your ticket has been created!")
+      await createchannel.send("<@&618638486996993441795>")
+    else:
+      await ctx.send(":x: You have to be in the support server to do this!")
+
+
+@bot.command()
+async def close(ctx):
+    staff = discord.utils.get(ctx.message.author.guild.roles, name="Support")
+    if staff in ctx.author.roles:
+        channel = ctx.message.channel
+        embed = discord.Embed(
+            title="Closing ticket", description="This ticket will be closed in 10 seconds", color=0x7289DA)
+        confirmmsg = await ctx.send(embed=embed)
+        await asyncio.sleep(10)
+        await channel.delete(reason="Ticket closed")
+    else:
+        await ctx.send(":x: You do not have permission to do that.")
+    
+@bot.command()
+@commands.has_role(638486996993441795)
 async def presence(ctx, *, status):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(status))
     await ctx.send("Status Changed!")
     
 @bot.command()
-@commands.has_role(627226040720162816)
+@commands.has_role(638486996993441795)
 async def offlinemode(ctx):
     await bot.change_presence(status=discord.Status.offline)
     await ctx.send("Status Changed!")
 
 @bot.command()
-@commands.has_role(627226040720162816)
+@commands.has_role(638486996993441795)
 async def onlinemode(ctx):
     await bot.change_presence(status=discord.Status.online)
     await ctx.send("Status Changed!")
     
 @bot.command()
-@commands.has_role(627226040720162816)
+@commands.has_role(638486996993441795)
 async def userpresence(ctx):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(f"with {len(list(bot.get_all_members()))} users!"))
     await ctx.send("Status Changed!")           
                                                                                   
 @bot.command()
-@commands.has_role(627226040720162816)
+@commands.has_role(638486996993441795)
 async def serverpresence(ctx):
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(f"in {len(bot.guilds)} servers!"))
     await ctx.send("Status Changed!") 
