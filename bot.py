@@ -5,7 +5,7 @@ import random
 from discord.ext import commands, tasks
 from itertools import cycle
 
-bot = commands.Bot(command_prefix="oc!")
+bot = commands.Bot(command_prefix="tj!")
 
 @bot.event
 async def on_ready():
